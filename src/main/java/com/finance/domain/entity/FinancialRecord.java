@@ -1,12 +1,20 @@
 package com.finance.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "financial_records")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class FinancialRecord {
 
     @Id
@@ -38,11 +46,14 @@ public class FinancialRecord {
     private User createdBy;
 
     @Column(nullable = false, updatable = false)
+    @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(nullable = false)
+    @Builder.Default
     private LocalDateTime updatedAt = LocalDateTime.now();
 
+    @Builder.Default
     private boolean deleted = false;
     private LocalDateTime deletedAt;
 
@@ -54,65 +65,9 @@ public class FinancialRecord {
         EDUCATION, SHOPPING, RENT, INSURANCE, TAXES, OTHER_EXPENSE
     }
 
-    public FinancialRecord() {}
-
     @PreUpdate
     protected void onUpdate() { updatedAt = LocalDateTime.now(); }
 
     public void softDelete() { this.deleted = true; this.deletedAt = LocalDateTime.now(); }
     public void restore() { this.deleted = false; this.deletedAt = null; }
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public BigDecimal getAmount() { return amount; }
-    public void setAmount(BigDecimal amount) { this.amount = amount; }
-    public RecordType getType() { return type; }
-    public void setType(RecordType type) { this.type = type; }
-    public Category getCategory() { return category; }
-    public void setCategory(Category category) { this.category = category; }
-    public LocalDate getDate() { return date; }
-    public void setDate(LocalDate date) { this.date = date; }
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-    public String getNotes() { return notes; }
-    public void setNotes(String notes) { this.notes = notes; }
-    public User getCreatedBy() { return createdBy; }
-    public void setCreatedBy(User createdBy) { this.createdBy = createdBy; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
-    public boolean isDeleted() { return deleted; }
-    public void setDeleted(boolean deleted) { this.deleted = deleted; }
-    public LocalDateTime getDeletedAt() { return deletedAt; }
-    public void setDeletedAt(LocalDateTime deletedAt) { this.deletedAt = deletedAt; }
-
-    public static FinancialRecordBuilder builder() { return new FinancialRecordBuilder(); }
-
-    public static class FinancialRecordBuilder {
-        private Long id;
-        private BigDecimal amount;
-        private RecordType type;
-        private Category category;
-        private LocalDate date;
-        private String description;
-        private String notes;
-        private User createdBy;
-
-        public FinancialRecordBuilder id(Long id) { this.id = id; return this; }
-        public FinancialRecordBuilder amount(BigDecimal amount) { this.amount = amount; return this; }
-        public FinancialRecordBuilder type(RecordType type) { this.type = type; return this; }
-        public FinancialRecordBuilder category(Category category) { this.category = category; return this; }
-        public FinancialRecordBuilder date(LocalDate date) { this.date = date; return this; }
-        public FinancialRecordBuilder description(String description) { this.description = description; return this; }
-        public FinancialRecordBuilder notes(String notes) { this.notes = notes; return this; }
-        public FinancialRecordBuilder createdBy(User createdBy) { this.createdBy = createdBy; return this; }
-
-        public FinancialRecord build() {
-            FinancialRecord r = new FinancialRecord();
-            r.id = id; r.amount = amount; r.type = type; r.category = category;
-            r.date = date; r.description = description; r.notes = notes; r.createdBy = createdBy;
-            return r;
-        }
-    }
 }

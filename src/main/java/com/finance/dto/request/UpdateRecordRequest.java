@@ -2,9 +2,11 @@ package com.finance.dto.request;
 
 import com.finance.domain.entity.FinancialRecord;
 import jakarta.validation.constraints.*;
+import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Data
 public class UpdateRecordRequest {
     @DecimalMin("0.01") @Digits(integer = 15, fraction = 4)
     private BigDecimal amount;
@@ -16,18 +18,4 @@ public class UpdateRecordRequest {
     private String description;
     @Size(max = 1000)
     private String notes;
-
-    public UpdateRecordRequest() {}
-    public BigDecimal getAmount() { return amount; }
-    public void setAmount(BigDecimal amount) { this.amount = amount; }
-    public FinancialRecord.RecordType getType() { return type; }
-    public void setType(FinancialRecord.RecordType type) { this.type = type; }
-    public FinancialRecord.Category getCategory() { return category; }
-    public void setCategory(FinancialRecord.Category category) { this.category = category; }
-    public LocalDate getDate() { return date; }
-    public void setDate(LocalDate date) { this.date = date; }
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-    public String getNotes() { return notes; }
-    public void setNotes(String notes) { this.notes = notes; }
 }

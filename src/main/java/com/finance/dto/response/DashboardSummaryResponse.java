@@ -1,9 +1,17 @@
 package com.finance.dto.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Builder;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class DashboardSummaryResponse {
     private BigDecimal totalIncome;
     private BigDecimal totalExpenses;
@@ -16,29 +24,10 @@ public class DashboardSummaryResponse {
     private List<FinancialRecordResponse> recentActivity;
     private List<MonthlyTrend> monthlyTrends;
 
-    public DashboardSummaryResponse() {}
-
-    public BigDecimal getTotalIncome() { return totalIncome; }
-    public void setTotalIncome(BigDecimal totalIncome) { this.totalIncome = totalIncome; }
-    public BigDecimal getTotalExpenses() { return totalExpenses; }
-    public void setTotalExpenses(BigDecimal totalExpenses) { this.totalExpenses = totalExpenses; }
-    public BigDecimal getNetBalance() { return netBalance; }
-    public void setNetBalance(BigDecimal netBalance) { this.netBalance = netBalance; }
-    public Long getTotalRecords() { return totalRecords; }
-    public void setTotalRecords(Long totalRecords) { this.totalRecords = totalRecords; }
-    public Long getIncomeCount() { return incomeCount; }
-    public void setIncomeCount(Long incomeCount) { this.incomeCount = incomeCount; }
-    public Long getExpenseCount() { return expenseCount; }
-    public void setExpenseCount(Long expenseCount) { this.expenseCount = expenseCount; }
-    public Map<String, BigDecimal> getIncomeByCategory() { return incomeByCategory; }
-    public void setIncomeByCategory(Map<String, BigDecimal> incomeByCategory) { this.incomeByCategory = incomeByCategory; }
-    public Map<String, BigDecimal> getExpenseByCategory() { return expenseByCategory; }
-    public void setExpenseByCategory(Map<String, BigDecimal> expenseByCategory) { this.expenseByCategory = expenseByCategory; }
-    public List<FinancialRecordResponse> getRecentActivity() { return recentActivity; }
-    public void setRecentActivity(List<FinancialRecordResponse> recentActivity) { this.recentActivity = recentActivity; }
-    public List<MonthlyTrend> getMonthlyTrends() { return monthlyTrends; }
-    public void setMonthlyTrends(List<MonthlyTrend> monthlyTrends) { this.monthlyTrends = monthlyTrends; }
-
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class MonthlyTrend {
         private int year;
         private int month;
@@ -47,24 +36,10 @@ public class DashboardSummaryResponse {
         private BigDecimal expense;
         private BigDecimal netBalance;
 
-        public MonthlyTrend() {}
         public MonthlyTrend(int year, int month, String monthName, BigDecimal income, BigDecimal expense) {
             this.year = year; this.month = month; this.monthName = monthName;
             this.income = income; this.expense = expense;
             this.netBalance = income.subtract(expense);
         }
-
-        public int getYear() { return year; }
-        public void setYear(int year) { this.year = year; }
-        public int getMonth() { return month; }
-        public void setMonth(int month) { this.month = month; }
-        public String getMonthName() { return monthName; }
-        public void setMonthName(String monthName) { this.monthName = monthName; }
-        public BigDecimal getIncome() { return income; }
-        public void setIncome(BigDecimal income) { this.income = income; }
-        public BigDecimal getExpense() { return expense; }
-        public void setExpense(BigDecimal expense) { this.expense = expense; }
-        public BigDecimal getNetBalance() { return netBalance; }
-        public void setNetBalance(BigDecimal netBalance) { this.netBalance = netBalance; }
     }
 }
